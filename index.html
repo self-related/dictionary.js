@@ -14,7 +14,7 @@
         </header>
 
         <main>
-            <section class="section">
+            <section id="translate-section" class="section">
                 <h2>Translate</h2>
                 
                 <div class="lang-switcher">
@@ -37,20 +37,20 @@
                     </label>
 
                     <div class="buttons-wrap justify-end">
-                        <button class="button">Translate</button>    
+                        <button id="translate-btn" class="button">Translate</button>    
                     </div>
                 </div><!-- .input-wrap -->
 
                 <div class="input-wrap flex-align-end">
                     <textarea id="translated-text" class="input-wrap_textarea" type="text"></textarea>                    
                     <div class="buttons-wrap">
-                        <button class="button">Reset</button>
-                        <button class="button">Add</button>
+                        <button id="reset-btn" class="button">Reset</button>
+                        <button id="add-btn" class="button">Add</button>
                     </div>
                 </div><!-- .input-wrap -->
             </section>
 
-            <section class="section">
+            <section id="dictionary-section" class="section">
                 <h2>Dictionaries</h2>
                 <select name="" id="" class="selector selector_padding">
                     <option hidden>test</option>
@@ -62,5 +62,7 @@
 
         <footer></footer>
         
+
+        <script src="./index.js" type="module"></script>
     </body>
 </html>
