@@ -2,12 +2,19 @@
 :root {
     --background-color: #252525;
     --background-color-2: #505050;
+    --background-color-2-hover: #606060;
+    --background-color-2-active: #404040;
     --text-color: #dddddd;
+    --accent-color: #ff6900;
 }
 
 /* common rules */
 *, ::before, ::after {
     box-sizing: border-box;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--accent-color);
 }
 
 :root {
@@ -43,8 +50,8 @@ h1 {
 
 main {
     display: flex;
-    justify-content: space-around;
-    column-gap: 1rem;
+    justify-content: center;
+    column-gap: 3rem;
     
     padding: 2rem;
 }
@@ -57,19 +64,71 @@ main {
     row-gap: 1rem;
 }
 
-.user-input {
+.selector {
+    background-color: var(--background-color-2);
+    color: var(--text-color);
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+}
+
+.selector:hover {
+    background-color: var(--background-color-2-hover);
+}
+
+.selector_padding {
+    padding: 0.4rem 0.4rem;
+}
+
+.lang-switcher {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.lang-switcher > .selector {
+    flex-grow: 1; /* take all space left */
+
+    /* some workaround here */
+    width: 0; /* prevents flex overflow AND makes elements the same size */
+    /* min-width: 0; */  /* ONLY PREVENTS FLEX OVERFLOW when select itself takes much more space */
+}
+
+#switch-langs-btn {
+    background-color: var(--background-color-2);
+    color: var(--text-color);
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    min-width: max-content; /* do not wrap text */
+}
+#switch-langs-btn:hover {
+    background-color: var(--background-color-2-hover);
+}
+#switch-langs-btn:active {
+    background-color: var(--background-color-2-active);
+}
+
+
+.input-wrap {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    align-items: end;
 }
 
-.user-input_checkbox {
-    accent-color: #ff6900; 
+.input-wrap_checkbox {
+    accent-color: var(--accent-color); 
 }
 
 
-.user-input_textarea {
+.input-wrap_textarea {
     display: block;
     
     width: 100%;
@@ -82,19 +141,20 @@ main {
     
     background-color: var(--background-color-2);
     color: var(--text-color);
-    accent-color: #ff6900;
     
     border: none;
     border-radius: 5px;
-
 }
 
-.user-input_textarea:focus {
+.input-wrap_textarea:hover {
+    background-color: #606060;
+}
+
+.input-wrap_textarea:focus {
     outline: 2px solid #ff6900;
 }
 
-.section_button {
-    display: block;
+.button {
     border: none;
     border-radius: 5px;
     padding: 0.2rem 0.4rem;
@@ -103,11 +163,19 @@ main {
     font-size: 1rem;
     cursor: pointer;
 }
-.section_button:active {
+.button:hover {
+    background-color: #4b576a;
+}
+.button:active {
     background-color: #293240;
 }
-.section_button:focus-visible {
+.button:focus-visible {
     outline: 2px solid #ff6900;
+}
+
+.buttons-wrap {
+    display: flex;
+    column-gap: 0.5rem;
 }
 
 .dictionary {
@@ -115,4 +183,14 @@ main {
     min-height: 200px;
     background-color: var(--background-color-2);
     border-radius: 5px;
+}
+
+
+/* common modifiers */
+.flex-align-end {
+    align-items: end;
+}
+
+.hidden {
+    display: none;
 }
