@@ -53,6 +53,9 @@ let mainTranslation = "";
     /**@type {String} */
 let api = "google";
 
+    /**@type {import("./translate.js").TranslationResult} */
+let lastTranslationResult = { sourceText: "", mainTranslation: "", moreOptions: [] };
+
 
 /* Functions ***************************************************************************/
 
@@ -69,6 +72,7 @@ async function callApi() {
 
     mainTranslation = translationResult.mainTranslation;
     updateTranslatedTextInput();
+    lastTranslationResult = translationResult;
 }
 
 
@@ -91,3 +95,8 @@ translateBtn.addEventListener("click", () => {
     sourceText = sourceTextInput.value;
     callApi();
 });
+
+resetBtn.addEventListener("click", () => {
+    mainTranslation = lastTranslationResult.mainTranslation;
+    updateTranslatedTextInput();
+})
