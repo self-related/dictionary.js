@@ -1,6 +1,6 @@
-/* Init DOM Elements ******************************************************************/
-
 import { getTranslation } from "./translate.js";
+
+/* Init DOM Elements ******************************************************************/
 
     /**@type {?HTMLSelectElement} #current-lang */
 const sourceLangSelector = document.getElementById("source-lang");
@@ -54,6 +54,17 @@ let mainTranslation = "";
 let api = "google";
 
 
+/* Functions ***************************************************************************/
+
+async function callApi() {
+    if (!sourceText) {
+        return;
+    }
+    const translationResult = await getTranslation(sourceLang, targetLang, sourceText, api);
+    console.log(translationResult); // temp
+}
+
+
 
 /* Event Listeners *******************************************************************/
 
@@ -61,7 +72,7 @@ let api = "google";
 sourceTextInput.addEventListener("input", (event) => {
     if (translateAutomatically) {
         sourceText = event.currentTarget.value;
-        // call api
+        callApi();
     }
 });
 
@@ -71,8 +82,5 @@ translatedTextInput.addEventListener("input", (event) => mainTranslation = event
 // Start translation on click
 translateBtn.addEventListener("click", () => {
     sourceText = sourceTextInput.value;
-    if (!sourceText) {
-        return;
-    }
-    getTranslation(sourceLang, targetLang, sourceText, api);
+    callApi();
 });
