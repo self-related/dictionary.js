@@ -1,7 +1,7 @@
 /* Init DOM Elements ******************************************************************/
 
     /**@type {?HTMLSelectElement} #current-lang */
-const currentLangSelector = document.getElementById("current-lang");
+const sourceLangSelector = document.getElementById("source-lang");
 
     /**@type {?HTMLButtonElement} #switch-langs-btn */
 const switchLangsBtn = document.getElementById("switch-langs-btn");
@@ -34,7 +34,7 @@ const autoTranslateCheckbox = document.getElementById("auto-translate");
 /* Global variables *****************************************************************/
 
     /**@type {String} */
-let currentLang = "auto";
+let sourceLang = "auto";
 
     /**@type {String} */
 let targetLang = "en";
