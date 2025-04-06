@@ -7,8 +7,14 @@ function getGoogleApiURL(sourceLang, targetLang, sourceText, api) {
     }
 }
 
+/**
+ * @param {String} sourceLang 
+ * @param {String} targetLang 
+ * @param {String} sourceText 
+ * @param {String} api 
+ */
 export async function getTranslation(sourceLang, targetLang, sourceText, api) {
     const url = getGoogleApiURL(sourceLang, targetLang, sourceText, api);
-    const response = await fetch(url, {cache: "force-cache"});
-    console.log(response);
+    const response = await fetch(url).then(data => data.json());
+    console.log(response); // temp
 }

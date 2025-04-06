@@ -1,5 +1,7 @@
 /* Init DOM Elements ******************************************************************/
 
+import { getTranslation } from "./translate.js";
+
     /**@type {?HTMLSelectElement} #current-lang */
 const sourceLangSelector = document.getElementById("source-lang");
 
@@ -48,6 +50,9 @@ let sourceText = "";
     /**@type {String} */
 let mainTranslation = "";
 
+    /**@type {String} */
+let api = "google";
+
 
 
 /* Event Listeners *******************************************************************/
@@ -66,5 +71,8 @@ translatedTextInput.addEventListener("input", (event) => mainTranslation = event
 // Start translation on click
 translateBtn.addEventListener("click", () => {
     sourceText = sourceTextInput.value;
-    // call api
+    if (!sourceText) {
+        return;
+    }
+    getTranslation(sourceLang, targetLang, sourceText, api);
 });
