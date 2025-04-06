@@ -56,12 +56,19 @@ let api = "google";
 
 /* Functions ***************************************************************************/
 
+function updateTranslatedTextInput() {
+    translatedTextInput.value = mainTranslation;
+}
+
 async function callApi() {
     if (!sourceText) {
         return;
     }
     const translationResult = await getTranslation(sourceLang, targetLang, sourceText, api);
     console.log(translationResult); // temp
+
+    mainTranslation = translationResult.mainTranslation;
+    updateTranslatedTextInput();
 }
 
 
