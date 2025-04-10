@@ -28,7 +28,7 @@ const resetBtn = document.getElementById("reset-btn");
     /**@type {?HTMLButtonElement} #add-btn */
 const addBtn = document.getElementById("add-btn");
 
-    /**@type {?HTMLButtonElement} #auto-translate */
+    /**@type {?HTMLInputElement} #auto-translate */
 const autoTranslateCheckbox = document.getElementById("auto-translate");
 
 
@@ -100,3 +100,8 @@ resetBtn.addEventListener("click", () => {
     mainTranslation = lastTranslationResult.mainTranslation;
     updateTranslatedTextInput();
 })
+
+autoTranslateCheckbox.addEventListener("change", (event) => {
+    translateAutomatically = event.currentTarget.checked;
+    console.log(translateAutomatically);
+});
