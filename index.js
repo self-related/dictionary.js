@@ -1,3 +1,4 @@
+import { updateSourceLangSelector } from "./render.js";
 import { getTranslation } from "./translate.js";
 
 /* Init DOM Elements ******************************************************************/
@@ -105,3 +106,7 @@ translateAutomaticallyCheckbox.addEventListener("change", (event) => {
     translateAutomatically = event.currentTarget.checked;
     console.log(translateAutomatically);
 });
+
+
+// update elements on page load
+updateSourceLangSelector(sourceLangSelector, api, sourceLang);
