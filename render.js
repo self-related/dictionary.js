@@ -1,3 +1,9 @@
+// ToDo:
+// class Render; constructor(currentStateObj, {all html nodes})
+// Render.initSourceLangOptions(langs, api)
+// Render.updateSomeElement(no params)
+
+
 import { languagesGoogle } from "./translate.js";
 
 /**

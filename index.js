@@ -136,5 +136,11 @@ switchLangsBtn.addEventListener("click", () => {
 
 
 /* Update elements on page load *******************************************************************/
+
+// ToDo: replace by Render
 updateSourceLangSelector(sourceLangSelector, api, sourceLang);
 updateTargetLangSelector(targetLangSelector, api, targetLang);
+
+// ToDo: replace by Render
+sourceTextInput.value = sourceText;
+mainTranslationInput.value = mainTranslation;
