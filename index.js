@@ -97,15 +97,28 @@ translateBtn.addEventListener("click", () => {
     callApi();
 });
 
+// reset main translation input
 resetBtn.addEventListener("click", () => {
     mainTranslation = lastTranslationResult.mainTranslation;
     updateMainTranslationInput();
 })
 
+// toggle auto-translation
 translateAutomaticallyCheckbox.addEventListener("change", (event) => {
     translateAutomatically = event.currentTarget.checked;
     console.log(translateAutomatically);
 });
+
+// change source lang on selector value change
+sourceLangSelector.addEventListener("change", (event) => {
+    sourceLang = event.currentTarget.value;
+});
+
+// change target lang on selector value change
+targetLangSelector.addEventListener("change", (event) => {
+    targetLang = event.currentTarget.value;
+});
+
 
 
 /* Update elements on page load *******************************************************************/
