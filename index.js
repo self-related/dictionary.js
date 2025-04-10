@@ -16,7 +16,7 @@ const targetLangSelector = document.getElementById("target-lang");
 const sourceTextInput = document.getElementById("source-text");
 
     /**@type {?HTMLInputElement} #translated-text */
-const translatedTextInput = document.getElementById("translated-text");
+const mainTranslationInput = document.getElementById("main-translation");
 
 
     /**@type {?HTMLButtonElement} #translate-btn */
@@ -29,7 +29,7 @@ const resetBtn = document.getElementById("reset-btn");
 const addBtn = document.getElementById("add-btn");
 
     /**@type {?HTMLInputElement} #auto-translate */
-const autoTranslateCheckbox = document.getElementById("auto-translate");
+const translateAutomaticallyCheckbox = document.getElementById("translate-automatically");
 
 
 
@@ -42,7 +42,7 @@ let sourceLang = "auto";
 let targetLang = "en";
 
     /**@type {boolean} */
-let translateAutomatically = false;
+let translateAutomatically = translateAutomaticallyCheckbox.checked;
 
     /**@type {String} */
 let sourceText = "";
@@ -59,8 +59,8 @@ let lastTranslationResult = { sourceText: "", mainTranslation: "", moreOptions: 
 
 /* Functions ***************************************************************************/
 
-function updateTranslatedTextInput() {
-    translatedTextInput.value = mainTranslation;
+function updateMainTranslationInput() {
+    mainTranslationInput.value = mainTranslation;
 }
 
 async function callApi() {
@@ -71,7 +71,7 @@ async function callApi() {
     console.log(translationResult); // temp
 
     mainTranslation = translationResult.mainTranslation;
-    updateTranslatedTextInput();
+    updateMainTranslationInput();
     lastTranslationResult = translationResult;
 }
 
@@ -88,7 +88,7 @@ sourceTextInput.addEventListener("input", (event) => {
 });
 
 // Change main translation when typing
-translatedTextInput.addEventListener("input", (event) => mainTranslation = event.currentTarget.value);
+mainTranslationInput.addEventListener("input", (event) => mainTranslation = event.currentTarget.value);
 
 // Start translation on click
 translateBtn.addEventListener("click", () => {
@@ -98,10 +98,10 @@ translateBtn.addEventListener("click", () => {
 
 resetBtn.addEventListener("click", () => {
     mainTranslation = lastTranslationResult.mainTranslation;
-    updateTranslatedTextInput();
+    updateMainTranslationInput();
 })
 
-autoTranslateCheckbox.addEventListener("change", (event) => {
+translateAutomaticallyCheckbox.addEventListener("change", (event) => {
     translateAutomatically = event.currentTarget.checked;
     console.log(translateAutomatically);
 });
