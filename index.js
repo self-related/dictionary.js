@@ -119,6 +119,20 @@ targetLangSelector.addEventListener("change", (event) => {
     targetLang = event.currentTarget.value;
 });
 
+switchLangsBtn.addEventListener("click", () => {
+    if (sourceLang === "auto") {
+        return;
+    }
+    [sourceLang, targetLang] = [targetLang, sourceLang];
+    [sourceText, mainTranslation] = [mainTranslation, sourceText];
+
+    // manual DOM update
+    sourceLangSelector.value = sourceLang;
+    targetLangSelector.value = targetLang;
+    sourceTextInput.value = sourceText;
+    mainTranslationInput.value = mainTranslation;
+});
+
 
 
 /* Update elements on page load *******************************************************************/
