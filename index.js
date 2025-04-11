@@ -113,5 +113,5 @@ elements.switchLangsBtn.addEventListener("click", () => {
 updateSourceLangSelector(elements.sourceLangSelector, api, sourceLang);
 updateTargetLangSelector(elements.targetLangSelector, api, targetLang);
 
-elements.sourceTextInput.value = sourceText;
-elements.mainTranslationInput.value = mainTranslation;
+elements.sourceTextInput.update({ value: sourceText });
+elements.mainTranslationInput.update({ value: mainTranslation });
