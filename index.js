@@ -2,11 +2,9 @@ import { updateSourceLangSelector, updateTargetLangSelector } from "./render.js"
 import { getTranslation } from "./translate.js";
 import { getAllElements } from "./utils.js";
 
-/* Init DOM Elements ******************************************************************/
+//Init DOM Elements
 const elements = getAllElements();
 
-
-/* Global state of properties, mostly related to HTML elements ************************/
 
 /**
  * @typedef { { 
@@ -18,13 +16,23 @@ const elements = getAllElements();
 * translateAutomatically: boolean,
 * lastTranslationResult: import("./translate.js").TranslationResult;
 * } } State
-*
-* @type {State} state variable
 */
+
+/** 
+ * @type {State} Global state of properties, mostly related to HTML elements 
+ */
 const state = {
-   sourceLang: "auto",
-   targetLang: "en",
-   sourceText: "",
+   get sourceLang() { return this._sourceLang; },
+   set sourceLang(newValue) {
+    this._sourceLang = newValue;
+    updateSourceLangSelector(elements.sourceLangSelector, this.currentApi, this.sourceLang);
+   },
+
+   get targetLang() { return this._targetLang; },
+   set targetLang(newValue) {
+    this._targetLang = newValue;
+    updateTargetLangSelector(elements.targetLangSelector, this.currentApi, this.targetLang);
+   },
 
    get sourceText() { return this._sourceText },
    set sourceText(newValue) {
@@ -40,31 +48,29 @@ const state = {
 
    currentApi: "google",
    translateAutomatically: elements.translateAutomaticallyCheckbox.checked,
-   lastTranslationResult: { sourceText: "", mainTranslation: "", moreOptions: [] }, // temp??
-}
+   lastTranslationResult: { sourceText: "", mainTranslation: "", moreOptions: [] }
+} // end of state object
 
 
-/* Functions ***************************************************************************/
-
-function updateMainTranslationInput() {
-    elements.mainTranslationInput.value = state.mainTranslation; //ToDo remove
-}
+/******************************************
+/* Functions 
+******************************************/
 
 async function callApi() {
     if (!state.sourceText) {
         return;
     }
     const translationResult = await getTranslation(state.sourceLang, state.targetLang, state.sourceText, state.currentApi);
-    console.log(translationResult); // temp
 
     state.mainTranslation = translationResult.mainTranslation;
-    updateMainTranslationInput(); //ToDo remove
     state.lastTranslationResult = translationResult;
 }
 
 
 
-/* Event Listeners *******************************************************************/
+/******************************************
+* Event Listeners 
+******************************************/
 
 // Start translation if state.translateAutomatically is true
 elements.sourceTextInput.addEventListener("input", (event) => {
@@ -79,32 +85,19 @@ elements.sourceTextInput.addEventListener("input", (event) => {
 elements.mainTranslationInput.addEventListener("input", (event) => state.mainTranslation = event.currentTarget.value);
 
 // Start translation on click
-elements.translateBtn.addEventListener("click", () => {
-    state.sourceText = elements.sourceTextInput.value; // ToDo remove
-    callApi();
-});
+elements.translateBtn.addEventListener("click", () => callApi());
 
 // reset main translation input
-elements.resetBtn.addEventListener("click", () => {
-    state.mainTranslation = state.lastTranslationResult.mainTranslation;
-    updateMainTranslationInput(); //ToDo remove
-})
+elements.resetBtn.addEventListener("click", () => state.mainTranslation = state.lastTranslationResult.mainTranslation);
 
 // toggle auto-translation
-elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => {
-    state.translateAutomatically = event.currentTarget.checked;
-    console.log(state.translateAutomatically);
-});
+elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => state.translateAutomatically = event.currentTarget.checked);
 
 // change source lang on selector value change
-elements.sourceLangSelector.addEventListener("change", (event) => {
-    state.sourceLang = event.currentTarget.value;
-});
+elements.sourceLangSelector.addEventListener("change", (event) => state.sourceLang = event.currentTarget.value);
 
 // change target lang on selector value change
-elements.targetLangSelector.addEventListener("change", (event) => {
-    state.targetLang = event.currentTarget.value;
-});
+elements.targetLangSelector.addEventListener("change", (event) => state.targetLang = event.currentTarget.value);
 
 elements.switchLangsBtn.addEventListener("click", () => {
     if (state.sourceLang === "auto") {
@@ -112,21 +105,14 @@ elements.switchLangsBtn.addEventListener("click", () => {
     }
     [state.sourceLang, state.targetLang] = [state.targetLang, state.sourceLang];
     [state.sourceText, state.mainTranslation] = [state.mainTranslation, state.sourceText];
-
-    // manual DOM update
-    elements.sourceLangSelector.value = state.sourceLang;
-    elements.targetLangSelector.value = state.targetLang;
-    elements.sourceTextInput.value = state.sourceText;
-    elements.mainTranslationInput.value = state.mainTranslation;
 });
 
 
 
-/* Update elements on page load *******************************************************************/
-
-// ToDo: remove
-updateSourceLangSelector(elements.sourceLangSelector, state.currentApi, state.sourceLang);
-updateTargetLangSelector(elements.targetLangSelector, state.currentApi, state.targetLang);
-
-
-state.sourceText = "test";
+/******************************************
+* Initializing default state properties
+******************************************/
+state.sourceLang = "auto";
+state.targetLang = "en";
+state.sourceText = "";
+state.mainTranslation = "";
