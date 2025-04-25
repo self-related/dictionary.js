@@ -8,6 +8,28 @@ const elements = getAllElements();
 
 /* Global variables *****************************************************************/
 
+/**
+ * @typedef { { 
+* sourceLang: string,
+* targetLang: string,
+* sourceText: string,
+* mainTranslation: string,
+* currentApi: string,
+* translateAutomatically: boolean
+* } } State
+*
+* @type {State} state variable
+*/
+const state = {
+   sourceLang: "auto",
+   targetLang: "en",
+   sourceText: "",
+   mainTranslation: "",
+   currentApi: "google",
+   translateAutomatically: elements.translateAutomaticallyCheckbox.checked,
+   lastTranslationResult: { sourceText: "", mainTranslation: "", moreOptions: [] }, // temp??
+}
+
     /**@type {String} */
 let sourceLang = "auto";
 
