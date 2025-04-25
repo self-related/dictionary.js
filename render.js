@@ -1,8 +1,4 @@
-// ToDo:
-// class Render; constructor(currentStateObj, {all html nodes})
-// Render.initSourceLangOptions(langs, api)
-//  variant 1: Render.updateSomeElement(no params)
-//  variant 2: if (element instanceof HTMLTextAreaElement) updateHTMLTextAreaElement(params)
+
 
 
 import { languagesGoogle } from "./translate.js";

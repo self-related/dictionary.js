@@ -1,12 +1,34 @@
 import { updateSourceLangSelector, updateTargetLangSelector } from "./render.js";
 import { getTranslation } from "./translate.js";
-import { getAllElements } from "./utils.js";
+import { Control, getAllElements } from "./utils.js";
 
 /* Init DOM Elements ******************************************************************/
 const elements = getAllElements();
 
 
 /* Global variables *****************************************************************/
+
+/**
+ * @typedef { { 
+ * sourceLang: string,
+ * targetLang: string,
+ * sourceText: string,
+ * mainTranslation: string,
+ * currentApi: string,
+ * translateAutomatically: boolean
+ * } } State
+ *
+ * @type {State} 
+ */
+const state = {
+    sourceLang: "auto",
+    targetLang: "en",
+    sourceText: "",
+    mainTranslation: "",
+    currentApi: "google",
+    translateAutomatically: elements.translateAutomaticallyCheckbox.checked,
+    lastTranslationResult: { sourceText: "", mainTranslation: "", moreOptions: [] }, // temp??
+}
 
     /**@type {String} */
 let sourceLang = "auto";
@@ -79,6 +101,9 @@ elements.resetBtn.addEventListener("click", () => {
 elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => {
     translateAutomatically = event.currentTarget.checked;
     console.log(translateAutomatically);
+    if (event.target.checked == true) {
+        callApi();
+    }
 });
 
 // change source lang on selector value change
@@ -115,3 +140,11 @@ updateTargetLangSelector(elements.targetLangSelector, api, targetLang);
 
 elements.sourceTextInput.update({ value: sourceText });
 elements.mainTranslationInput.update({ value: mainTranslation });
+
+
+
+
+const control = new Control(state, document);
+// translation works
+// state.sourceText = "안녕하세요";
+// control.translate();
