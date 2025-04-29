@@ -22,6 +22,8 @@ const elements = getAllElements();
  * @type {State} Global state of properties, mostly related to HTML elements 
  */
 const state = {
+   currentApi: "google",
+
    get sourceLang() { return this._sourceLang; },
    set sourceLang(newValue) {
     this._sourceLang = newValue;
@@ -45,8 +47,6 @@ const state = {
     this._mainTranslation = newValue;
     elements.mainTranslationInput.value = newValue;
    },
-
-   currentApi: "google",
 
    get translateAutomatically() { return this._translateAutomatically; },
    set translateAutomatically(newValue) {
