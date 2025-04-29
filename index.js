@@ -1,4 +1,5 @@
-import { updateSourceLangSelector, updateTargetLangSelector } from "./render.js";
+import { api } from "./api.js";
+import { renderSourceLangSelector, renderTargetLangSelector } from "./render.js";
 import { getTranslation } from "./translate.js";
 import { getAllElements } from "./utils.js";
 
@@ -27,13 +28,13 @@ const state = {
    get sourceLang() { return this._sourceLang; },
    set sourceLang(newValue) {
     this._sourceLang = newValue;
-    updateSourceLangSelector(elements.sourceLangSelector, this.currentApi, this.sourceLang);
+    renderSourceLangSelector(elements.sourceLangSelector, this.sourceLang, api[this.currentApi].langs);
    },
 
    get targetLang() { return this._targetLang; },
    set targetLang(newValue) {
     this._targetLang = newValue;
-    updateTargetLangSelector(elements.targetLangSelector, this.currentApi, this.targetLang);
+    renderTargetLangSelector(elements.targetLangSelector, this.targetLang, api[this.currentApi].langs);
    },
 
    get sourceText() { return this._sourceText },
@@ -125,3 +126,4 @@ state.targetLang = "en";
 state.sourceText = "";
 state.mainTranslation = "";
 state.translateAutomatically = true;
+

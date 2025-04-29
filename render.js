@@ -4,36 +4,29 @@
 //  variant 1: Render.updateSomeElement(no params)
 //  variant 2: if (element instanceof HTMLTextAreaElement) updateHTMLTextAreaElement(params)
 
-
-import { languagesGoogle } from "./translate.js";
-
 /**
  * 
  * @param {HTMLSelectElement} element 
  * @param {String} api 
  */
-export const updateSourceLangSelector = (element, api, sourceLang) => {
-    if (api === "google") {
-        for (const key in languagesGoogle) {
-            const option = document.createElement("option");
-            option.value = key;
-            option.innerHTML = languagesGoogle[key];
-            element.appendChild(option);
-        }
-        element.value = sourceLang;
+export const renderSourceLangSelector = (element, sourceLang, langs) => {
+    for (const key in langs) {
+        const option = document.createElement("option");
+        option.value = key;
+        option.innerHTML = langs[key];
+        element.appendChild(option);
     }
+    element.value = sourceLang;
 };
 
-export const updateTargetLangSelector = (element, api, targetLang) => {
-    if (api === "google") {
-        for (const key in languagesGoogle) {
-            if (key === "auto")
-                continue;
-            const option = document.createElement("option");
-            option.value = key;
-            option.innerHTML = languagesGoogle[key];
-            element.appendChild(option);
-        }
-        element.value = targetLang;
+export const renderTargetLangSelector = (element, targetLang, langs) => {
+    for (const key in langs) {
+        if (key === "auto") continue;
+
+        const option = document.createElement("option");
+        option.value = key;
+        option.innerHTML = langs[key];
+        element.appendChild(option);
     }
+    element.value = targetLang;
 };

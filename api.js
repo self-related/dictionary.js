@@ -1,6 +1,7 @@
 export const api = {
     google: {
-        getUrl: (sourceLang, targetLang, sourceText) => `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&dt=bd&dj=1&q=${sourceText}`,
+        /**@param {{sourceLang: String, targetLang: String, sourceText: String}} */
+        getUrl: ({sourceLang, targetLang, sourceText}) => `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&dt=bd&dj=1&q=${sourceText}`,
         langs: {
             auto: "Auto",
             en: "English",
@@ -30,5 +31,5 @@ export const api = {
         },
     },
 
-    
+
 }
