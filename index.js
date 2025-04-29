@@ -47,7 +47,13 @@ const state = {
    },
 
    currentApi: "google",
-   translateAutomatically: elements.translateAutomaticallyCheckbox.checked,
+
+   get translateAutomatically() { return this._translateAutomatically; },
+   set translateAutomatically(newValue) {
+    this._translateAutomatically = newValue;
+    elements.translateAutomaticallyCheckbox.checked = newValue;
+   },
+
    lastTranslationResult: { sourceText: "", mainTranslation: "", moreOptions: [] }
 } // end of state object
 
@@ -76,7 +82,6 @@ async function callApi() {
 elements.sourceTextInput.addEventListener("input", (event) => {
     state.sourceText = event.currentTarget.value;
     if (state.translateAutomatically) {
-        //state.sourceText = event.currentTarget.value; // ToDo remove
         callApi();
     }
 });
@@ -91,7 +96,10 @@ elements.translateBtn.addEventListener("click", () => callApi());
 elements.resetBtn.addEventListener("click", () => state.mainTranslation = state.lastTranslationResult.mainTranslation);
 
 // toggle auto-translation
-elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => state.translateAutomatically = event.currentTarget.checked);
+elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => {
+    state.translateAutomatically = event.currentTarget.checked;
+    if (state.translateAutomatically) callApi();
+});
 
 // change source lang on selector value change
 elements.sourceLangSelector.addEventListener("change", (event) => state.sourceLang = event.currentTarget.value);
@@ -116,3 +124,4 @@ state.sourceLang = "auto";
 state.targetLang = "en";
 state.sourceText = "";
 state.mainTranslation = "";
+state.translateAutomatically = true;
