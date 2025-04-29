@@ -1,6 +1,5 @@
 import { api } from "./api.js";
 import { renderSourceLangSelector, renderTargetLangSelector } from "./render.js";
-import { getTranslation } from "./translate.js";
 import { getAllElements } from "./utils.js";
 
 //Init DOM Elements
@@ -15,7 +14,7 @@ const elements = getAllElements();
 * mainTranslation: string,
 * currentApi: string,
 * translateAutomatically: boolean,
-* lastTranslationResult: import("./translate.js").TranslationResult;
+* lastTranslation: import("./translate.js").TranslationResult;
 * } } State
 */
 
@@ -55,7 +54,7 @@ const state = {
     elements.translateAutomaticallyCheckbox.checked = newValue;
    },
 
-   lastTranslationResult: { sourceText: "", mainTranslation: "", moreOptions: [] }
+   lastTranslation: { sourceText: "", mainTranslation: "", moreOptions: [] }
 } // end of state object
 
 
@@ -67,10 +66,10 @@ async function callApi() {
     if (!state.sourceText) {
         return;
     }
-    const translationResult = await getTranslation(state.sourceLang, state.targetLang, state.sourceText, state.currentApi);
+    const translation = await api[state.currentApi].getTranslation(state); // just put state bc prop names are the same
 
-    state.mainTranslation = translationResult.mainTranslation;
-    state.lastTranslationResult = translationResult;
+    state.mainTranslation = translation.mainTranslation;
+    state.lastTranslation = translation;
 }
 
 
@@ -94,7 +93,7 @@ elements.mainTranslationInput.addEventListener("input", (event) => state.mainTra
 elements.translateBtn.addEventListener("click", () => callApi());
 
 // reset main translation input
-elements.resetBtn.addEventListener("click", () => state.mainTranslation = state.lastTranslationResult.mainTranslation);
+elements.resetBtn.addEventListener("click", () => state.mainTranslation = state.lastTranslation.mainTranslation);
 
 // toggle auto-translation
 elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => {
