@@ -36,7 +36,7 @@ h1, h2, h3 {
 /* styling */
 header {
     background-color: #151515;
-    height: 5rem;
+    height: 3rem;
 
     display: flex;
     justify-content: center;
@@ -177,6 +177,16 @@ main {
     display: flex;
     column-gap: 0.5rem;
 }
+
+.more-translations {
+    min-height: 7rem;
+    width: 100%;
+
+    background-color: var(--background-color-2);
+    
+    border-radius: 3px;
+}
+
 
 .dictionary {
     width: 100%;
