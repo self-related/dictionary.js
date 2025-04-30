@@ -6,7 +6,10 @@
     --background-color-2-active: #404040;
     --text-color: #dddddd;
     --accent-color: #ff6900;
+    --accent-color-active: #ad2e00;
 }
+
+
 
 /* common rules */
 *, ::before, ::after {
@@ -31,6 +34,8 @@ body {
 h1, h2, h3 {
     margin: 0;
 }
+
+
 
 
 /* styling */
@@ -178,15 +183,55 @@ main {
     column-gap: 0.5rem;
 }
 
+
 .other-translations {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    
     min-height: 7rem;
+    max-height: 10rem;
+    overflow-y: scroll;
     width: 100%;
+    padding: 0.7rem;
 
     background-color: var(--background-color-2);
     
     border-radius: 3px;
 }
 
+.translations-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.3rem;
+    align-items: baseline;
+}
+
+.translations-list__translation-category {
+    background-color: var(--accent-color);
+
+    border-radius: 3px;
+    margin: 0;
+
+    padding: 0.1rem 0.4rem;
+    font-size: 1rem;
+
+    color: white;
+    text-shadow: black 0.06rem 0.06rem 0.01rem;
+}
+
+.button_translation {
+    background-color: #414343;
+    margin-bottom: 0.3rem;
+    text-shadow: black 0.07rem 0.07rem 0.01rem;
+}
+
+.button_translation:hover {
+    background-color: var(--background-color-2-hover)
+}
+.button_translation:active {
+    background-color: var(--background-color-2-active)
+}
 
 .dictionary {
     width: 100%;

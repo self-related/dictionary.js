@@ -125,8 +125,8 @@ elements.switchLangsBtn.addEventListener("click", () => {
 * Initializing default state properties
 ******************************************/
 state.sourceLang = "auto";
-state.targetLang = "en";
-state.sourceText = "";
-state.mainTranslation = "";
+state.targetLang = "es";
+state.sourceText = "long";
+state.mainTranslation = ""; callApi(); // for tests only
 state.translateAutomatically = true;
 

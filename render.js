@@ -44,14 +44,17 @@ export const renderMoreOptionsEntries = (state) => {
 
     for (const translation of otherTranslations) {
         const translationsListElement = document.createElement("div");
+        translationsListElement.className = "translations-list";
 
         const translationCategoryElement = document.createElement("p");
+        translationCategoryElement.className = "translations-list__translation-category";
         translationCategoryElement.innerHTML = translation.pos + ": "; // noun, verb, etc
         translationsListElement.appendChild(translationCategoryElement); // insert into translationsListElement
 
         translation.translations.forEach(str => {
             const buttonWithTranslation = document.createElement("button");
             buttonWithTranslation.innerHTML = str;
+            buttonWithTranslation.className = "button button_translation";
             buttonWithTranslation.addEventListener("click", () => state.mainTranslation = str); // change mainTranslation in state object
 
             translationsListElement.appendChild(buttonWithTranslation); // insert into translationsListElement
