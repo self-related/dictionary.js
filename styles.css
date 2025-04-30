@@ -123,12 +123,12 @@ main {
     gap: 0.4rem;
 }
 
-.input-wrap_checkbox {
+.input-wrap__checkbox {
     accent-color: var(--accent-color); 
 }
 
 
-.input-wrap_textarea {
+.input-wrap__textarea {
     display: block;
     
     width: 100%;
@@ -146,11 +146,11 @@ main {
     border-radius: 3px;
 }
 
-.input-wrap_textarea:hover {
+.input-wrap__textarea:hover {
     background-color: #606060;
 }
 
-.input-wrap_textarea:focus {
+.input-wrap__textarea:focus {
     outline: 2px solid #ff6900;
 }
 
