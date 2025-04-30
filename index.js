@@ -13,7 +13,7 @@
 
 
 import { api } from "./api.js";
-import { renderSourceLangSelector, renderTargetLangSelector } from "./render.js";
+import { renderMoreOptionsEntries, renderSourceLangSelector, renderTargetLangSelector } from "./render.js";
 import { getAllElements } from "./utils.js";
 
 //Init DOM Elements
@@ -73,6 +73,7 @@ async function callApi() {
 
     state.mainTranslation = translation.mainTranslation;
     state.translation = translation;
+    renderMoreOptionsEntries(state);
 }
 
 
