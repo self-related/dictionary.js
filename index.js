@@ -1,11 +1,3 @@
-import { api } from "./api.js";
-import { renderSourceLangSelector, renderTargetLangSelector } from "./render.js";
-import { getAllElements } from "./utils.js";
-
-//Init DOM Elements
-const elements = getAllElements();
-
-
 /**
  * @typedef { { 
 * sourceLang: string,
@@ -14,9 +6,20 @@ const elements = getAllElements();
 * mainTranslation: string,
 * currentApi: string,
 * translateAutomatically: boolean,
-* lastTranslation: import("./translate.js").TranslationResult;
+* translation: import("./api.js").Translation;
 * } } State
 */
+
+
+
+import { api } from "./api.js";
+import { renderSourceLangSelector, renderTargetLangSelector } from "./render.js";
+import { getAllElements } from "./utils.js";
+
+//Init DOM Elements
+const elements = getAllElements();
+
+
 
 /** 
  * @type {State} Global state of properties, mostly related to HTML elements 
@@ -54,7 +57,7 @@ const state = {
     elements.translateAutomaticallyCheckbox.checked = newValue;
    },
 
-   lastTranslation: { sourceText: "", mainTranslation: "", moreOptions: [] }
+   translation: { sourceText: "", mainTranslation: "", otherTranslations: [] }
 } // end of state object
 
 
@@ -69,7 +72,7 @@ async function callApi() {
     const translation = await api[state.currentApi].getTranslation(state); // just put state bc prop names are the same
 
     state.mainTranslation = translation.mainTranslation;
-    state.lastTranslation = translation;
+    state.translation = translation;
 }
 
 
@@ -93,7 +96,7 @@ elements.mainTranslationInput.addEventListener("input", (event) => state.mainTra
 elements.translateBtn.addEventListener("click", () => callApi());
 
 // reset main translation input
-elements.resetBtn.addEventListener("click", () => state.mainTranslation = state.lastTranslation.mainTranslation);
+elements.resetBtn.addEventListener("click", () => state.mainTranslation = state.translation.mainTranslation);
 
 // toggle auto-translation
 elements.translateAutomaticallyCheckbox.addEventListener("change", (event) => {

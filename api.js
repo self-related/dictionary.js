@@ -2,7 +2,7 @@
  * @typedef {{ 
  *  sourceText: String, 
  *  mainTranslation: String, 
- *  moreOptions: Array 
+ *  otherTranslations: Array 
  * }} Translation
  * 
  * 
