@@ -1,14 +1,20 @@
 /**
+ * @typedef {import("./api.js").Translation} Translation
+ * 
+ * @typedef {Object.<string, Translation[]>} DictionaryMap
+ * 
  * @typedef { { 
-* sourceLang: string,
-* targetLang: string,
-* sourceText: string,
-* mainTranslation: string,
-* currentApi: string,
-* translateAutomatically: boolean,
-* translation: import("./api.js").Translation;
-* } } State
-*/
+ *  sourceLang: string,
+ *  targetLang: string,
+ *  sourceText: string,
+ *  mainTranslation: string,
+ *  currentApi: string,
+ *  translateAutomatically: boolean,
+ *  translation: Translation,
+ *  dictionaryMap: DictionaryMap
+ * } } State
+ * 
+ */
 
 
 
@@ -56,8 +62,10 @@ const state = {
         this._translateAutomatically = newValue;
         elements.translateAutomaticallyCheckbox.checked = newValue;
     },
-    
-    translation: { detectedLang: "", sourceText: "", mainTranslation: "", otherTranslations: [] }
+
+    translation: { detectedSourceLang: "", sourceLang: "", sourceText: "", mainTranslation: "", otherTranslations: [] },
+
+    dictionaryMap: {},
 } // end of state object
 
 
@@ -119,6 +127,29 @@ elements.switchLangsBtn.addEventListener("click", () => {
     [state.sourceText, state.mainTranslation] = [state.mainTranslation, state.sourceText];
 });
 
+elements.addBtn.addEventListener("click", () => {
+    if (state.sourceLang == "auto" && !state.translation.detectedSourceLang) {
+        return;
+    }
+    const sourceLang = state.sourceLang == "auto" ? state.translation.detectedSourceLang : state.sourceLang;
+    const dictionaryName = `${api[state.currentApi].langs[sourceLang]} - ${api[state.currentApi].langs[state.targetLang]}`;
+
+    if (!state.dictionaryMap[dictionaryName]) {
+        state.dictionaryMap[dictionaryName] = [];
+    } 
+
+    const existingItemIndex = state.dictionaryMap[dictionaryName].findIndex((translation) => translation.sourceText == state.sourceText);
+    const newTranslation = {...state.translation, sourceLang: state.sourceLang, mainTranslation: state.mainTranslation, sourceText: state.sourceText};
+
+    if (existingItemIndex < 0) {
+        state.dictionaryMap[dictionaryName].push(newTranslation);
+    } else if (window.confirm("Replace existing translation?")) {
+        state.dictionaryMap[dictionaryName][existingItemIndex] = newTranslation;
+    }
+    
+    console.log(state.dictionaryMap);
+
+});
 
 
 /******************************************

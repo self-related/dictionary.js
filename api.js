@@ -1,6 +1,7 @@
 /**
  * @typedef {{ 
- *  detectedLang: String,
+ *  detectedSourceLang: String,
+ *  sourceLang: String,
  *  sourceText: String, 
  *  mainTranslation: String, 
  *  otherTranslations: Array<{pos: String, translations: string[]}>
@@ -27,7 +28,8 @@ export const api = {
             const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&dt=bd&dj=1&q=${sourceText}`;
             const json = await fetch(url).then(data => data.json());
             return {
-                detectedLang: json.src,
+                detectedSourceLang: json.src,
+                sourceLang: sourceLang,
                 sourceText: json.sentences[0].orig,
                 mainTranslation: json.sentences[0].trans,
                 otherTranslations: json.dict?.map(dict => ({
