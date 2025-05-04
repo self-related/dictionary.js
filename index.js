@@ -25,39 +25,39 @@ const elements = getAllElements();
  * @type {State} Global state of properties, mostly related to HTML elements 
  */
 const state = {
-   currentApi: "google",
+    currentApi: "google",
 
-   get sourceLang() { return this._sourceLang; },
-   set sourceLang(newValue) {
-    this._sourceLang = newValue;
-    renderSourceLangSelector(elements.sourceLangSelector, this.sourceLang, api[this.currentApi].langs);
-   },
+    get sourceLang() { return this._sourceLang; },
+    set sourceLang(newValue) {
+        this._sourceLang = newValue;
+        renderSourceLangSelector(elements.sourceLangSelector, this.sourceLang, api[this.currentApi].langs);
+    },
 
-   get targetLang() { return this._targetLang; },
-   set targetLang(newValue) {
-    this._targetLang = newValue;
-    renderTargetLangSelector(elements.targetLangSelector, this.targetLang, api[this.currentApi].langs);
-   },
+    get targetLang() { return this._targetLang; },
+    set targetLang(newValue) {
+        this._targetLang = newValue;
+        renderTargetLangSelector(elements.targetLangSelector, this.targetLang, api[this.currentApi].langs);
+    },
 
-   get sourceText() { return this._sourceText },
-   set sourceText(newValue) {
-    this._sourceText = newValue;
-    elements.sourceTextInput.value = newValue;
-   },
-   
-   get mainTranslation() { return this._mainTranslation }, 
-   set mainTranslation(newValue) {
-    this._mainTranslation = newValue;
-    elements.mainTranslationInput.value = newValue;
-   },
+    get sourceText() { return this._sourceText },
+    set sourceText(newValue) {
+        this._sourceText = newValue;
+        elements.sourceTextInput.value = newValue;
+    },
 
-   get translateAutomatically() { return this._translateAutomatically; },
-   set translateAutomatically(newValue) {
-    this._translateAutomatically = newValue;
-    elements.translateAutomaticallyCheckbox.checked = newValue;
-   },
+    get mainTranslation() { return this._mainTranslation }, 
+    set mainTranslation(newValue) {
+        this._mainTranslation = newValue;
+        elements.mainTranslationInput.value = newValue;
+    },
 
-   translation: { sourceText: "", mainTranslation: "", otherTranslations: [] }
+    get translateAutomatically() { return this._translateAutomatically; },
+    set translateAutomatically(newValue) {
+        this._translateAutomatically = newValue;
+        elements.translateAutomaticallyCheckbox.checked = newValue;
+    },
+    
+    translation: { detectedLang: "", sourceText: "", mainTranslation: "", otherTranslations: [] }
 } // end of state object
 
 

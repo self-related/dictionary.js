@@ -1,5 +1,6 @@
 /**
  * @typedef {{ 
+ *  detectedLang: String,
  *  sourceText: String, 
  *  mainTranslation: String, 
  *  otherTranslations: Array<{pos: String, translations: string[]}>
@@ -7,12 +8,11 @@
  * 
  * 
  * @typedef {Object} Api
- * @prop {function({ sourceLang: String, targetLang: String, sourceText: String }): string} getUrl
  * @prop {function({ sourceLang: String, targetLang: String, sourceText: String }): Promise<Translation>} getTranslation
  * @prop {Object.<string, string>} langs
  * 
  * 
- * @typedef {Object} ApiMap
+ * @typedef {Object} ApiMap - expose Api props when called as api.someApi
  * @prop {Api} google
  * 
  * 
@@ -27,6 +27,7 @@ export const api = {
             const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&dt=bd&dj=1&q=${sourceText}`;
             const json = await fetch(url).then(data => data.json());
             return {
+                detectedLang: json.src,
                 sourceText: json.sentences[0].orig,
                 mainTranslation: json.sentences[0].trans,
                 otherTranslations: json.dict?.map(dict => ({
