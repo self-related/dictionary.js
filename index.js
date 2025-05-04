@@ -138,8 +138,8 @@ elements.addBtn.addEventListener("click", () => {
         state.dictionaryMap[dictionaryName] = [];
     } 
 
-    const existingItemIndex = state.dictionaryMap[dictionaryName].findIndex((translation) => translation.sourceText == state.sourceText);
-    const newTranslation = {...state.translation, sourceLang: state.sourceLang, mainTranslation: state.mainTranslation, sourceText: state.sourceText};
+    const existingItemIndex = state.dictionaryMap[dictionaryName].findIndex((translation) => translation.sourceText == state.sourceText.trim());
+    const newTranslation = {...state.translation, sourceLang: state.sourceLang, mainTranslation: state.mainTranslation, sourceText: state.sourceText.trim()};
 
     if (existingItemIndex < 0) {
         state.dictionaryMap[dictionaryName].push(newTranslation);
