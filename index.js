@@ -128,9 +128,16 @@ elements.switchLangsBtn.addEventListener("click", () => {
 });
 
 elements.addBtn.addEventListener("click", () => {
+    // don't add if there's no lang detected on auto-detection
     if (state.sourceLang == "auto" && !state.translation.detectedSourceLang) {
         return;
     }
+
+    // don't add empty strings and spaces
+    if (!state.sourceText?.trim() || !state.mainTranslation?.trim()) {
+        return;
+    }
+    
     const sourceLang = state.sourceLang == "auto" ? state.translation.detectedSourceLang : state.sourceLang;
     const dictionaryName = `${api[state.currentApi].langs[sourceLang]} - ${api[state.currentApi].langs[state.targetLang]}`;
 
